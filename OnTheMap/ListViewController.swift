@@ -20,6 +20,8 @@ class ListViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("DevCell")!
+        cell.imageView?.image = UIImage(named: "Pin")
+        cell.textLabel?.text = "cell"
         return cell
     }
     

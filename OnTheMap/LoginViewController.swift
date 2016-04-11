@@ -13,6 +13,7 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var loginButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,10 +25,64 @@ class LoginViewController: UIViewController {
     @IBAction func loginButtonPressed(sender: AnyObject) {
         if let username = usernameTextField.text where !username.isEmpty,
             let password = passwordTextField.text where !password.isEmpty {
-            presentViewController((self.storyboard?.instantiateViewControllerWithIdentifier("TabBarViewController"))!, animated: true, completion: nil)
+            usernameTextField.enabled = false
+            passwordTextField.enabled = false
+            loginButton.enabled = false
+            
+            loginAndDisplayMap(username, password: password)
         } else {
             print("Could not proceed")
         }
+    }
+    
+    func loginAndDisplayMap(username: String!, password: String!) {
+        let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
+        request.HTTPMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.HTTPBody = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
+        
+        let session = NSURLSession.sharedSession()
+        let task = session.dataTaskWithRequest(request) { data, response, error in
+            if error != nil { // Handle error…
+                self.presentViewController(UIAlertController(title: "Error while logging in", message: error?.description, preferredStyle: .Alert), animated: true, completion: {
+                    self.usernameTextField.enabled = true
+                    self.passwordTextField.enabled = true
+                    self.loginButton.enabled = true
+                })
+            }
+            
+            let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
+
+            var parsedData: AnyObject
+            do {
+                parsedData = try NSJSONSerialization.JSONObjectWithData(newData, options: .AllowFragments)
+                if let statusCode = parsedData[Constants.UdacityResponseKey.StatusCode] as? Int,
+                    let errorMessage = parsedData[Constants.UdacityResponseKey.ErrorMessage] as? String {
+                    // Error from the server
+                    let alert = UIAlertController(title: "Error \(statusCode)", message: errorMessage, preferredStyle: .Alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler: { (alertAction) in
+                        alert.dismissViewControllerAnimated(true, completion: nil)
+                    }))
+                    self.presentViewController(alert, animated: true, completion: {
+                        self.usernameTextField.enabled = true
+                        self.passwordTextField.enabled = true
+                        self.loginButton.enabled = true
+                    })
+                } else {
+                    // There is data and we can use it
+                    if let session = parsedData[Constants.UdacityResponseKey.Session] as? [String:AnyObject] {
+                        if let sessionID = session[Constants.UdacityResponseKey.SessionID] as? String {
+                            (UIApplication.sharedApplication().delegate as! AppDelegate).sessionID = sessionID
+                            self.presentViewController((self.storyboard?.instantiateViewControllerWithIdentifier("TabBarViewController"))!, animated: true, completion: nil)
+                        }
+                    }
+                }
+            } catch {
+                print("Error parsing JSON")
+            }
+        }
+        task.resume()
     }
 }
 

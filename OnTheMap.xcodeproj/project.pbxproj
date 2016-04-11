@@ -15,6 +15,8 @@
 		0104A38A1CBBFDE0006E5B3E /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104A3891CBBFDE0006E5B3E /* ListViewController.swift */; };
 		0104A38E1CBBFFE6006E5B3E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104A38D1CBBFFE6006E5B3E /* LoginViewController.swift */; };
 		016023801CBC0DC000629E1E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0160237F1CBC0DC000629E1E /* MapKit.framework */; };
+		016B6B0F1CBC384E00B168D5 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016B6B0E1CBC384E00B168D5 /* Student.swift */; };
+		016B6B131CBC3E0600B168D5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016B6B121CBC3E0600B168D5 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		0104A3891CBBFDE0006E5B3E /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		0104A38D1CBBFFE6006E5B3E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0160237F1CBC0DC000629E1E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		016B6B0E1CBC384E00B168D5 /* Student.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
+		016B6B121CBC3E0600B168D5 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +80,8 @@
 		0104A3871CBBFAFA006E5B3E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				016B6B0E1CBC384E00B168D5 /* Student.swift */,
+				016B6B121CBC3E0600B168D5 /* Constants.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -162,8 +168,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				0104A38E1CBBFFE6006E5B3E /* LoginViewController.swift in Sources */,
+				016B6B0F1CBC384E00B168D5 /* Student.swift in Sources */,
 				0104A3781CBBFA41006E5B3E /* MapViewController.swift in Sources */,
 				0104A3761CBBFA41006E5B3E /* AppDelegate.swift in Sources */,
+				016B6B131CBC3E0600B168D5 /* Constants.swift in Sources */,
 				0104A38A1CBBFDE0006E5B3E /* ListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
