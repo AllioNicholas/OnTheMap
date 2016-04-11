@@ -14,6 +14,7 @@
 		0104A3801CBBFA41006E5B3E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0104A37E1CBBFA41006E5B3E /* LaunchScreen.storyboard */; };
 		0104A38A1CBBFDE0006E5B3E /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104A3891CBBFDE0006E5B3E /* ListViewController.swift */; };
 		0104A38E1CBBFFE6006E5B3E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104A38D1CBBFFE6006E5B3E /* LoginViewController.swift */; };
+		016023801CBC0DC000629E1E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0160237F1CBC0DC000629E1E /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		0104A3811CBBFA41006E5B3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0104A3891CBBFDE0006E5B3E /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		0104A38D1CBBFFE6006E5B3E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		0160237F1CBC0DC000629E1E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				016023801CBC0DC000629E1E /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +45,7 @@
 		0104A3691CBBFA41006E5B3E = {
 			isa = PBXGroup;
 			children = (
+				0160237F1CBC0DC000629E1E /* MapKit.framework */,
 				0104A3741CBBFA41006E5B3E /* OnTheMap */,
 				0104A3731CBBFA41006E5B3E /* Products */,
 			);
