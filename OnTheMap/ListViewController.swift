@@ -11,8 +11,16 @@ import UIKit
 
 class ListViewController: UITableViewController {
     
+    var studentList: [Student] = []
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        self.studentList = (UIApplication.sharedApplication().delegate as! AppDelegate).studentList
+    }
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return studentList.count
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -21,7 +29,7 @@ class ListViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("DevCell")!
         cell.imageView?.image = UIImage(named: "Pin")
-        cell.textLabel?.text = "cell"
+        cell.textLabel?.text = "\(studentList[indexPath.row].firstName) \(studentList[indexPath.row].lastName)"
         return cell
     }
     

@@ -26,5 +26,26 @@ struct Constants {
         static let SessionID = "id"
         static let SessionExpiration = "expiration"
     }
+    
+    struct ParseResponseKey {
+        static let ErrorMessage = "error"
+        static let Results = "results"
+    }
+    
+    struct ParseStudentLocationKey {
+        static let StudentLocationID = "objectId"   // StudentLocationID
+        static let StudentLocationUdacityID = "uniqueKey"   // StudentLocationUdacityID
+        
+        static let CreationDate = "createdAt"
+        static let UpdatedDate = "updatedAt"
+        
+        static let FirstName = "firstName"
+        static let LastName = "lastName"
+        
+        static let PinLatitude = "latitude"
+        static let PinLongitude = "longitude"
+        static let LocationName = "mapString"
+        static let MediaURL = "mediaURL"
+    }
 
 }

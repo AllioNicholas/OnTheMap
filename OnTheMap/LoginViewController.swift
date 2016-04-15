@@ -57,6 +57,7 @@ class LoginViewController: UIViewController {
             var parsedData: AnyObject
             do {
                 parsedData = try NSJSONSerialization.JSONObjectWithData(newData, options: .AllowFragments)
+                
                 if let statusCode = parsedData[Constants.UdacityResponseKey.StatusCode] as? Int,
                     let errorMessage = parsedData[Constants.UdacityResponseKey.ErrorMessage] as? String {
                     // Error from the server
@@ -71,11 +72,18 @@ class LoginViewController: UIViewController {
                     })
                 } else {
                     // There is data and we can use it
-                    if let session = parsedData[Constants.UdacityResponseKey.Session] as? [String:AnyObject] {
-                        if let sessionID = session[Constants.UdacityResponseKey.SessionID] as? String {
+                    if let session = parsedData[Constants.UdacityResponseKey.Session] as? [String:AnyObject],
+                        let account = parsedData[Constants.UdacityResponseKey.Account] as? [String:AnyObject] {
+                        if let sessionID = session[Constants.UdacityResponseKey.SessionID] as? String,
+                            let accountKey = account[Constants.UdacityResponseKey.AccountKey] as? String {
                             (UIApplication.sharedApplication().delegate as! AppDelegate).sessionID = sessionID
+                            (UIApplication.sharedApplication().delegate as! AppDelegate).accountKey = accountKey
                             self.presentViewController((self.storyboard?.instantiateViewControllerWithIdentifier("TabBarViewController"))!, animated: true, completion: nil)
+                        } else {
+                            print("Error while extracting from sessio and account")
                         }
+                    } else {
+                        print("Error while extracting from parsedData")
                     }
                 }
             } catch {
