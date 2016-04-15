@@ -7,9 +7,9 @@
 //
 
 import Foundation
+import MapKit
 
-class Student: NSObject {
-    
+class Student: NSObject, MKAnnotation {
     
     var firstName: String!
     var lastName: String!
@@ -21,6 +21,9 @@ class Student: NSObject {
     var creationDate: String?
     var updateDate: String?
     
+    var title: String?
+    var coordinate: CLLocationCoordinate2D
+    
     init(dictionary: [String:AnyObject]) {
         self.firstName = dictionary[Constants.ParseStudentLocationKey.FirstName] as! String
         self.lastName = dictionary[Constants.ParseStudentLocationKey.LastName] as! String
@@ -31,5 +34,8 @@ class Student: NSObject {
         self.uniqueKey = dictionary[Constants.ParseStudentLocationKey.StudentLocationUdacityID] as! String
         self.creationDate = dictionary[Constants.ParseStudentLocationKey.CreationDate] as? String
         self.updateDate = dictionary[Constants.ParseStudentLocationKey.UpdatedDate] as? String
+        
+        self.title = "\(self.firstName) \(self.lastName)"
+        self.coordinate = CLLocationCoordinate2D(latitude: CLLocationDegrees(self.pinPosition.0!), longitude: CLLocationDegrees(self.pinPosition.1!))
     }
 }

@@ -32,5 +32,4 @@ class ListViewController: UITableViewController {
         cell.textLabel?.text = "\(studentList[indexPath.row].firstName) \(studentList[indexPath.row].lastName)"
         return cell
     }
-    
 }
