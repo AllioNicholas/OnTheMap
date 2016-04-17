@@ -22,7 +22,15 @@ class Student: NSObject, MKAnnotation {
     var updateDate: String?
     
     var title: String?
+    var subtitle: String?
     var coordinate: CLLocationCoordinate2D
+    
+    init(first_name: String, last_name: String, uniqueKey: String) {
+        self.firstName = first_name
+        self.lastName = last_name
+        self.uniqueKey = uniqueKey
+        self.coordinate = CLLocationCoordinate2D(latitude: 0, longitude: 0)
+    }
     
     init(dictionary: [String:AnyObject]) {
         self.firstName = dictionary[Constants.ParseStudentLocationKey.FirstName] as! String
@@ -36,6 +44,7 @@ class Student: NSObject, MKAnnotation {
         self.updateDate = dictionary[Constants.ParseStudentLocationKey.UpdatedDate] as? String
         
         self.title = "\(self.firstName) \(self.lastName)"
+        self.subtitle = self.link
         self.coordinate = CLLocationCoordinate2D(latitude: CLLocationDegrees(self.pinPosition.0!), longitude: CLLocationDegrees(self.pinPosition.1!))
     }
 }

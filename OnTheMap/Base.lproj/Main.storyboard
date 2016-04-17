@@ -37,7 +37,11 @@
                                 <segue destination="dfG-lY-ert" kind="presentation" id="dZr-VF-BYG"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="7Ca-6W-KYP"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="7Ca-6W-KYP">
+                            <connections>
+                                <action selector="refreshMap:" destination="jQu-bn-grq" id="bgB-km-0Jb"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="map" destination="k6v-7R-nQV" id="n8r-LZ-AZP"/>
@@ -63,7 +67,7 @@
                                 <rect key="frame" x="20" y="348" width="560" height="30"/>
                                 <state key="normal" title="Find on the Map"/>
                                 <connections>
-                                    <segue destination="gx2-VX-gJp" kind="show" id="bOe-SO-3M2"/>
+                                    <segue destination="gx2-VX-gJp" kind="show" identifier="SearchLocation" id="bOe-SO-3M2"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Your Location Here" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eVi-4n-xOF">
@@ -99,6 +103,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="locationSelection" destination="eVi-4n-xOF" id="DqD-uC-J9W"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wkp-Uj-gDd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -119,10 +126,37 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="44L-f6-9AQ">
                                 <rect key="frame" x="0.0" y="332" width="600" height="268"/>
                             </mapView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter link to share" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gUh-01-tsq">
+                                <rect key="frame" x="20" y="72" width="560" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="VOu-AL-GrW"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t8A-rI-gqO">
+                                <rect key="frame" x="20" y="182" width="560" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="Fc9-H6-1Bm"/>
+                                </constraints>
+                                <state key="normal" title="Submit"/>
+                                <connections>
+                                    <action selector="submitPin:" destination="gx2-VX-gJp" eventType="touchUpInside" id="xSz-Qq-2ok"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="gUh-01-tsq" firstAttribute="top" secondItem="nfC-nu-rGI" secondAttribute="bottom" constant="8" id="3cK-aO-7pQ"/>
+                            <constraint firstItem="t8A-rI-gqO" firstAttribute="leading" secondItem="qek-Kd-9KJ" secondAttribute="leadingMargin" id="4j4-pt-Q4K"/>
+                            <constraint firstItem="gUh-01-tsq" firstAttribute="leading" secondItem="qek-Kd-9KJ" secondAttribute="leadingMargin" id="6wK-Ra-4G5"/>
+                            <constraint firstItem="t8A-rI-gqO" firstAttribute="top" secondItem="gUh-01-tsq" secondAttribute="bottom" constant="50" id="Bm4-90-obY"/>
+                            <constraint firstItem="gUh-01-tsq" firstAttribute="top" secondItem="nfC-nu-rGI" secondAttribute="bottom" constant="8" id="O4w-ed-LEh"/>
                             <constraint firstItem="qWd-Ex-Jj6" firstAttribute="top" secondItem="44L-f6-9AQ" secondAttribute="bottom" id="XNp-1Q-TAT"/>
+                            <constraint firstItem="gUh-01-tsq" firstAttribute="trailing" secondItem="qek-Kd-9KJ" secondAttribute="trailingMargin" id="XdS-Os-sIv"/>
+                            <constraint firstItem="t8A-rI-gqO" firstAttribute="trailing" secondItem="qek-Kd-9KJ" secondAttribute="trailingMargin" id="doK-ux-4Bc"/>
+                            <constraint firstItem="gUh-01-tsq" firstAttribute="leading" secondItem="qek-Kd-9KJ" secondAttribute="leadingMargin" id="hov-AX-WWD"/>
+                            <constraint firstItem="gUh-01-tsq" firstAttribute="trailing" secondItem="qek-Kd-9KJ" secondAttribute="trailingMargin" id="i6p-BT-aer"/>
                             <constraint firstAttribute="trailingMargin" secondItem="44L-f6-9AQ" secondAttribute="trailing" constant="-20" id="o1H-c1-MQM"/>
                             <constraint firstItem="44L-f6-9AQ" firstAttribute="leading" secondItem="qek-Kd-9KJ" secondAttribute="leadingMargin" constant="-20" id="sgF-30-zDI"/>
                             <constraint firstItem="44L-f6-9AQ" firstAttribute="top" secondItem="nfC-nu-rGI" secondAttribute="bottom" constant="268" id="v1f-3P-YME"/>
@@ -135,6 +169,10 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="linkToShare" destination="gUh-01-tsq" id="wyz-F7-tww"/>
+                        <outlet property="locationPreview" destination="44L-f6-9AQ" id="e0O-dP-PjC"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FQK-8C-Nza" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -170,7 +208,11 @@
                                 <action selector="postNewLocation:" destination="y3B-Jw-OOQ" id="5Hx-LU-Qxa"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="8sl-6E-oyx"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="8sl-6E-oyx">
+                            <connections>
+                                <action selector="refreshList:" destination="y3B-Jw-OOQ" id="so6-KO-vm2"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>

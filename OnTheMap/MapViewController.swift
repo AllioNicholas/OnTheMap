@@ -8,14 +8,13 @@
 
 import UIKit
 import MapKit
+import SafariServices
 
 class MapViewController: UIViewController {
 
     @IBOutlet weak var map: MKMapView!
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        
+    override func viewDidLoad() {        
         self.map.delegate = self
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0)) {
@@ -60,6 +59,23 @@ class MapViewController: UIViewController {
             task.resume()
         }
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        refreshData()
+    }
+    
+    @IBAction func refreshMap(sender: AnyObject) {
+        refreshData()
+    }
+    
+    func refreshData() {
+        dispatch_async(dispatch_get_main_queue(), {
+            // Load pins on the map
+            self.map.removeAnnotations((UIApplication.sharedApplication().delegate as! AppDelegate).studentList)
+            self.map.addAnnotations((UIApplication.sharedApplication().delegate as! AppDelegate).studentList)
+        })
+    }
 }
 
 extension MapViewController: MKMapViewDelegate {
@@ -80,5 +96,17 @@ extension MapViewController: MKMapViewDelegate {
         }
         return nil
     }
+    
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        //open safari
+        if let url = NSURL(string: view.annotation!.subtitle!!) {
+            if UIApplication.sharedApplication().canOpenURL(url) {
+                let webpage = SFSafariViewController(URL: url)
+                self.presentViewController(webpage, animated: true, completion: nil)
+            }
+        }
+        
+    }
+
 }
 

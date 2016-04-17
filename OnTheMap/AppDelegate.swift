@@ -14,6 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var sessionID: String? = nil
     var accountKey: String? = nil
+    var appOwner: Student? = nil
     var studentList = [Student]()
 
 }

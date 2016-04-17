@@ -45,7 +45,9 @@ class LoginViewController: UIViewController {
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request) { data, response, error in
             if error != nil { // Handle error…
-                self.presentViewController(UIAlertController(title: "Error while logging in", message: error?.description, preferredStyle: .Alert), animated: true, completion: {
+                let alert = UIAlertController(title: "Error while logging in", message: error?.description, preferredStyle: .Alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler: nil))
+                self.presentViewController(alert, animated: true, completion: {
                     self.usernameTextField.enabled = true
                     self.passwordTextField.enabled = true
                     self.loginButton.enabled = true
@@ -78,7 +80,33 @@ class LoginViewController: UIViewController {
                             let accountKey = account[Constants.UdacityResponseKey.AccountKey] as? String {
                             (UIApplication.sharedApplication().delegate as! AppDelegate).sessionID = sessionID
                             (UIApplication.sharedApplication().delegate as! AppDelegate).accountKey = accountKey
-                            self.presentViewController((self.storyboard?.instantiateViewControllerWithIdentifier("TabBarViewController"))!, animated: true, completion: nil)
+                            self.presentViewController((self.storyboard?.instantiateViewControllerWithIdentifier("TabBarViewController"))!, animated: true, completion: {
+                                let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/users/\(accountKey)")!)
+                                let session = NSURLSession.sharedSession()
+                                let task = session.dataTaskWithRequest(request) { data, response, error in
+                                    if error != nil { // Handle error...
+                                        print(error)
+                                    }
+                                    let accountData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
+                                    
+                                    var parsedData: AnyObject
+                                    do {
+                                        parsedData = try NSJSONSerialization.JSONObjectWithData(accountData, options: .AllowFragments)
+                                        
+                                        if let user = parsedData[Constants.UdacityResponseKey.User] as? [String:AnyObject] {
+                                            if let firstName = user[Constants.UdacityResponseKey.FirstName] as? String,
+                                                let lastName = user[Constants.UdacityResponseKey.LastName] as? String {
+                                                (UIApplication.sharedApplication().delegate as! AppDelegate).appOwner = Student(first_name: firstName, last_name: lastName, uniqueKey: accountKey)
+                                            }
+                                        } else {
+                                            print("Error parsing account")
+                                        }
+                                    } catch {
+                                        print("Error extracting account")
+                                    }
+                                }
+                                task.resume()
+                            })
                         } else {
                             print("Error while extracting from sessio and account")
                         }

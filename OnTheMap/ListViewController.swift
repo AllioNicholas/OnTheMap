@@ -23,13 +23,17 @@ class ListViewController: UITableViewController {
         return studentList.count
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    }
-    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("DevCell")!
         cell.imageView?.image = UIImage(named: "Pin")
         cell.textLabel?.text = "\(studentList[indexPath.row].firstName) \(studentList[indexPath.row].lastName)"
         return cell
+    }
+    @IBAction func refreshList(sender: AnyObject) {
+        dispatch_async(dispatch_get_main_queue(), {
+            // Load pins on the map
+            self.studentList = (UIApplication.sharedApplication().delegate as! AppDelegate).studentList
+            self.tableView.reloadData()
+        })
     }
 }

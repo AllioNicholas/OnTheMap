@@ -25,6 +25,10 @@ struct Constants {
         
         static let SessionID = "id"
         static let SessionExpiration = "expiration"
+        
+        static let User = "user"
+        static let FirstName = "first_name"
+        static let LastName = "last_name"
     }
     
     struct ParseResponseKey {
